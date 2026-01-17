@@ -4,7 +4,7 @@ set -e;
 
 apt update;
 
-apt install -y \
+apt apt-get install -y --no-install-recommends apt-utils \
     mysql-server \
     redis-server \
     sqlite3 \
