@@ -25,7 +25,7 @@ apt update;
 
 # Install PHP extensions
 apt install -y php8.4 \
-    php8.4-{cli,intl,bcmath,ctype,fileinfo,mbstring,opcache,sqlite3,imagick,pdo,pgsql,redis,tokenizer,curl,xml,zip};
+    php8.4-{cli,intl,bcmath,ctype,fileinfo,mbstring,opcache,imagick,sqlite3,pdo,mysql,pgsql,redis,tokenizer,curl,xml,zip};
 
 # Install FrankenPHP
 curl https://frankenphp.dev/install.sh | sh
