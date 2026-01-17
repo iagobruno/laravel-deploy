@@ -19,7 +19,11 @@ apt install -y \
     libdav1d-dev \
     imagemagick;
 
-# Install php extensions
+apt install -y software-properties-common ca-certificates lsb-release apt-transport-https;
+add-apt-repository ppa:ondrej/php;
+apt update;
+
+# Install PHP extensions
 apt install -y php8.4 \
     php8.4-{cli,intl,bcmath,ctype,fileinfo,mbstring,openssl,opcache,pcntl,sqlite3,imagick,pdo,pgsql,redis,tokenizer,curl,json,xml,zip};
 
