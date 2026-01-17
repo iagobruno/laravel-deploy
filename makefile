@@ -15,6 +15,7 @@ start-supervisor:
 	supervisorctl start all
 
 start-nginx:
+	sed -i "s|/var/www/html/public|$(pwd)/public|g" nginx.conf
 	cp ./nginx.conf /etc/nginx/sites-available/laravel-server.conf
 	ln -sf /etc/nginx/sites-available/laravel-server.conf /etc/nginx/sites-enabled/
 	nginx -t
