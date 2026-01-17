@@ -24,7 +24,7 @@ add-apt-repository -y ppa:ondrej/php;
 apt update;
 
 # Install PHP extensions
-apt install -y php8.4-{cli,intl,common,bcmath,ctype,fileinfo,mbstring,opcache,imagick,sqlite3,pdo,mysql,pgsql,redis,tokenizer,curl,xml,zip};
+apt install -y php8.4-{intl,common,bcmath,ctype,fileinfo,mbstring,opcache,imagick,sqlite3,pdo,mysql,pgsql,redis,tokenizer,curl,xml,zip};
 
 # Install FrankenPHP
 curl https://frankenphp.dev/install.sh | sh
