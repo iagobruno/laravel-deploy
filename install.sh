@@ -20,7 +20,7 @@ apt install -y \
     imagemagick;
 
 apt install -y software-properties-common ca-certificates lsb-release apt-transport-https;
-add-apt-repository ppa:ondrej/php;
+add-apt-repository -y ppa:ondrej/php;
 apt update;
 
 # Install PHP extensions
