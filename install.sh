@@ -41,9 +41,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -;
 apt-get install -y nodejs;
 npm install -g --force yarn pnpm@latest-10 bun chokidar;
 
-
+systemctl enable supervisor && systemctl start supervisor;
 systemctl enable mysql && systemctl start mysql;
-
 systemctl enable redis-server && systemctl start redis-server;
 
 # mysql --version;
