@@ -10,12 +10,13 @@ deploy:
 	make start-nginx
 
 start-supervisor:
+	sed -i "s|/var/www/html|$$(pwd)|g" supervisord.conf
 	cp supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 	supervisorctl reread
-	supervisorctl start all
+	supervisorctl update
 
 start-nginx:
-	sed -i "s|/var/www/html/public|$(pwd)/public|g" nginx.conf
+	sed -i "s|/var/www/html/public|$$(pwd)/public|g" nginx.conf
 	cp ./nginx.conf /etc/nginx/sites-available/laravel-server.conf
 	ln -sf /etc/nginx/sites-available/laravel-server.conf /etc/nginx/sites-enabled/
 	nginx -t
