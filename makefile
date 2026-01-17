@@ -16,7 +16,7 @@ start-supervisor:
 
 start-nginx:
 	cp ./nginx.conf /etc/nginx/sites-available/laravel-server.conf
-	ln -s /etc/nginx/sites-available/laravel-server.conf /etc/nginx/sites-enabled/
+	ln -sf /etc/nginx/sites-available/laravel-server.conf /etc/nginx/sites-enabled/
 	nginx -t
 	systemctl reload nginx
 	systemctl reload php8.4-fpm

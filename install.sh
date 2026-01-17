@@ -13,19 +13,41 @@ apt install -y \
     git \
     make \
     cron \
+    nginx \
     supervisor \
     libheif-dev \
     libaom-dev \
     libdav1d-dev \
-    imagemagick;
+    imagemagick \
+    software-properties-common \
+    ca-certificates \
+    lsb-release \
+    apt-transport-https;
 
-apt install -y software-properties-common ca-certificates lsb-release apt-transport-https;
 add-apt-repository -y ppa:ondrej/php;
 apt update;
 
 # Install PHP extensions
 apt install -y php8.4 \
-    php8.4-{cli,fpm,intl,common,bcmath,ctype,fileinfo,mbstring,opcache,imagick,sqlite3,pdo,mysql,pgsql,redis,tokenizer,curl,xml,zip};
+    php8.4-cli \
+    php8.4-fpm \
+    php8.4-intl \
+    php8.4-common \
+    php8.4-bcmath \
+    php8.4-ctype \
+    php8.4-fileinfo \
+    php8.4-mbstring \
+    php8.4-opcache \
+    php8.4-imagick \
+    php8.4-sqlite3 \
+    php8.4-pdo \
+    php8.4-mysql \
+    php8.4-pgsql \
+    php8.4-redis \
+    php8.4-tokenizer \
+    php8.4-curl \
+    php8.4-xml \
+    php8.4-zip;
 
 # Install Composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');";
@@ -36,7 +58,7 @@ mv composer.phar /usr/local/bin/composer;
 # Install NodeJS
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -;
 apt-get install -y nodejs;
-npm install -g --force yarn pnpm@latest-10 bun chokidar;
+npm install -g --force bun yarn pnpm@latest-10 chokidar;
 
 systemctl enable supervisor && systemctl start supervisor;
 systemctl enable php8.4-fpm && systemctl start php8.4-fpm;
