@@ -24,10 +24,8 @@ add-apt-repository -y ppa:ondrej/php;
 apt update;
 
 # Install PHP extensions
-apt install -y php8.4-{intl,common,bcmath,ctype,fileinfo,mbstring,opcache,imagick,sqlite3,pdo,mysql,pgsql,redis,tokenizer,curl,xml,zip};
-
-# Install FrankenPHP
-curl https://frankenphp.dev/install.sh | sh
+apt install -y php8.4 \
+    php8.4-{cli,fpm,intl,common,bcmath,ctype,fileinfo,mbstring,opcache,imagick,sqlite3,pdo,mysql,pgsql,redis,tokenizer,curl,xml,zip};
 
 # Install Composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');";
@@ -41,6 +39,8 @@ apt-get install -y nodejs;
 npm install -g --force yarn pnpm@latest-10 bun chokidar;
 
 systemctl enable supervisor && systemctl start supervisor;
+systemctl enable php8.4-fpm && systemctl start php8.4-fpm;
+systemctl enable nginx && systemctl start nginx;
 systemctl enable mysql && systemctl start mysql;
 systemctl enable redis-server && systemctl start redis-server;
 
