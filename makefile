@@ -15,10 +15,10 @@ start-supervisor:
 	supervisorctl update
 
 start-nginx:
+	rm -f /etc/nginx/sites-{available,enabled}/default
 	cp ./nginx.conf /etc/nginx/sites-available/default.conf
 	sed -i "s|/var/www/html/public|$$(pwd)/public|g" /etc/nginx/sites-available/default.conf
 	ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
-	rm -f /etc/nginx/sites-{available,enabled}/default
 	phpenmod opcache
 	nginx -t
 	systemctl restart nginx
