@@ -31,24 +31,25 @@ class BadJob implements ShouldQueue
             'message' => '⏳ Processing...'
         ]);
 
-        sleep(3);
-        Context::set('log-id', $log->id);
-        throw new Exception('Ocorreu um erro');
+        sleep(1);
 
-        $result = Process::path(base_path())->run("php artisan inspire");
-        $emoji = $result->successful() ? '✅' : '❌';
-        $output = $result->successful() ? $result->output() : 'Failed to process the command' ?? $result->errorOutput();
-        $output = preg_replace('/\e\[[0-9;]*m/', '', $output);
-        $message = $emoji . ' ' . $output;
+        try {
+            if ($this->attempts() <= 2) {
+                throw new Exception('❌ Ocorreu um erro durante a execução do Job');
+            }
 
-        $log->update(compact('message'));
-    }
+            $result = Process::path(base_path())->run("php artisan inspire");
+            $emoji = $result->successful() ? '✅' : '❌';
+            $output = $result->successful() ? $result->output() : 'Failed to process the command' ?? $result->errorOutput();
+            $output = preg_replace('/\e\[[0-9;]*m/', '', $output);
+            $message = $emoji . ' ' . $output;
 
-    public function failed(?Throwable $exception): void
-    {
-        $logId = Context::get('log-id');
-        Log::find($logId)?->update([
-            'message' => '❌ Ocorreu um erro durante a execução do Job'
-        ]);
+            $log->update(compact('message'));
+        } catch (\Throwable $err) {
+            $log->update([
+                'message' => $err->getMessage(),
+            ]);
+            throw $err;
+        }
     }
 }
