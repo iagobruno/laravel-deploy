@@ -86,3 +86,5 @@ DB_DATABASE=laravel-app
 DB_USERNAME=laravel-user
 DB_PASSWORD=STRONG_PASSWORD
 ```
+
+> Teste usando `php artisan migrate --force`
