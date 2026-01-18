@@ -60,9 +60,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -;
 apt-get install -y nodejs;
 npm install -g --force bun yarn pnpm@latest-10 chokidar;
 
-chown -R root:root $PWD \
-  && chmod -R 755 $PWD/storage \
-  && chmod -R 755 $PWD/bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache &&\
+    chmod -R 775 storage bootstrap/cache;
 
 systemctl enable supervisor && systemctl start supervisor;
 systemctl enable php8.4-fpm && systemctl start php8.4-fpm;
