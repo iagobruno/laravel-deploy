@@ -6,7 +6,6 @@ deploy:
 	php artisan migrate --force
 	php artisan optimize
 	php artisan queue:restart
-	supervisorctl restart scheduler
 	systemctl reload nginx php8.4-fpm
 
 start-supervisor:

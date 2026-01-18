@@ -60,15 +60,21 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -;
 apt-get install -y nodejs;
 npm install -g --force bun yarn pnpm@latest-10 chokidar;
 
-chown -R www-data:www-data storage bootstrap/cache && chmod -R 775 storage bootstrap/cache;
-mkdir -p /var/log/supervisor && chown -R root:root /var/log/supervisor;
-
-
 systemctl enable supervisor && systemctl start supervisor;
 systemctl enable php8.4-fpm && systemctl start php8.4-fpm;
 systemctl enable nginx && systemctl start nginx;
 systemctl enable mysql && systemctl start mysql;
 systemctl enable redis-server && systemctl start redis-server;
+
+# Adicionar o scheduler do Laravel ao cron do sistema
+(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/php $(pwd)/artisan schedule:run >> /dev/null 2>&1") | crontab -;
+
+chown -R www-data:www-data storage bootstrap/cache && chmod -R 775 storage bootstrap/cache;
+mkdir -p /var/log/supervisor && chown -R root:root /var/log/supervisor;
+
+cp .env.example .env
+composer install
+php artisan storage:link
 
 # mysql --version;
 # redis-server --version;
