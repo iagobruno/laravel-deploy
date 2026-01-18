@@ -60,7 +60,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | bash -;
 apt-get install -y nodejs;
 npm install -g --force bun yarn pnpm@latest-10 chokidar;
 
-chown -R www-data:www-data $PWD \
+chown -R root:root $PWD \
   && chmod -R 755 $PWD/storage \
   && chmod -R 755 $PWD/bootstrap/cache
 

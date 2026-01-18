@@ -6,19 +6,19 @@ deploy:
 	php artisan migrate --force
 	php artisan optimize
 	php artisan reload
-	supervisorctl restart queue_worker scheduler
+	make start-supervisor
 	make start-nginx
 
 start-supervisor:
-	sed -i "s|/var/www/html|$$(pwd)|g" supervisord.conf
 	cp supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+	sed -i "s|/var/www/html|$$(pwd)|g" /etc/supervisor/conf.d/supervisord.conf
 	supervisorctl reread
 	supervisorctl update
 
 start-nginx:
-	sed -i "s|/var/www/html/public|$$(pwd)/public|g" nginx.conf
-	cp ./nginx.conf /etc/nginx/sites-available/laravel-server.conf
-	ln -sf /etc/nginx/sites-available/laravel-server.conf /etc/nginx/sites-enabled/
+	cp ./nginx.conf /etc/nginx/sites-available/default.conf
+	sed -i "s|/var/www/html/public|$$(pwd)/public|g" /etc/nginx/sites-available/default.conf
+	ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/
 	nginx -t
 	systemctl reload nginx
 	systemctl reload php8.4-fpm
