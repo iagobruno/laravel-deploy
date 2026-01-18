@@ -1,6 +1,6 @@
-Um projeto de exemplo de como usar queues e o scheduler do Laravel dentro do Docker e de quebra como usar o mesmo Dockerfile em desenvolvimento e em produção.
+Um projeto de exemplo de como fazer deploy um servidor Laravel (com filas e scheduler) usando o Nginx e FPM.
 
-## How it works
+## Como funcionar
 
 1. O scheduler do Laravel adiciona um novo `ProcessJob` na fila a cada minuto. ([See](/routes/console.php))
 2. O comando queue:listen processa a fila de jobs.
@@ -10,7 +10,7 @@ Um projeto de exemplo de como usar queues e o scheduler do Laravel dentro do Doc
 
 ## Como começar
 
-Rode o comando abaixo para configurar todas as dependências necessárias para o servidor funcionar:
+Rode o comando abaixo para configurar todas as dependências e programas necessários para o servidor funcionar:
 
 ```
 bash instal.sh;
@@ -29,7 +29,7 @@ php artisan migrate --force
 
 ## Rodar localmente
 
-Localmente em ambiente de desenvolvimento, você pode executar o comando abaixo que inicia o `artisan serve`, `artisan queue:listen` e o `vite` simultaneamente:
+Em ambiente de desenvolvimento, você pode executar o comando abaixo que inicia o `artisan serve`, `artisan queue:listen` e o `vite` simultaneamente:
 
 ```
 composer run dev
@@ -72,6 +72,8 @@ GRANT
   CREATE, ALTER, DROP, INDEX, REFERENCES
 ON `laravel-app`.*
 TO 'laravel-user'@'localhost';
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'NOVA_SENHA_FORTE';
 
 FLUSH PRIVILEGES;
 ```
