@@ -19,8 +19,6 @@ start-nginx:
 	cp ./nginx.conf /etc/nginx/sites-available/default.conf
 	sed -i "s|/var/www/html/public|$$(pwd)/public|g" /etc/nginx/sites-available/default.conf
 	ln -sf /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/
-	rm -f /etc/nginx/sites-available/default
-	phpenmod opcache
 	nginx -t
 	systemctl restart nginx
 	systemctl restart php8.4-fpm
