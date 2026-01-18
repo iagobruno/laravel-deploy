@@ -67,7 +67,9 @@ systemctl enable mysql && systemctl start mysql;
 systemctl enable redis-server && systemctl start redis-server;
 
 # Adicionar o scheduler do Laravel ao cron do sistema
-(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/php $(pwd)/artisan schedule:run >> /dev/null 2>&1") | crontab -;
+CRON_CMD="* * * * * /usr/bin/php $(pwd)/artisan schedule:run >> /dev/null 2>&1";
+crontab -l 2>/dev/null | grep -F "$CRON_CMD" >/dev/null || \
+  (crontab -l 2>/dev/null; echo "$CRON_CMD") | crontab -;
 
 chown -R www-data:www-data storage bootstrap/cache && chmod -R 775 storage bootstrap/cache;
 mkdir -p /var/log/supervisor && chown -R root:root /var/log/supervisor;
